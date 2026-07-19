@@ -3,7 +3,146 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/*
+|--------------------------------------------------------------------------
+| Dimgent Technologies — Design System
+|--------------------------------------------------------------------------
+| Refactoring UI-inspired: strong hierarchy, purposeful color, soft shadows,
+| generous whitespace, consistent spacing scale.
+*/
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+        'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Brand — deep indigo (trust / electronics) */
+    --color-brand-50: #eef2ff;
+    --color-brand-100: #e0e7ff;
+    --color-brand-200: #c7d2fe;
+    --color-brand-300: #a5b4fc;
+    --color-brand-400: #818cf8;
+    --color-brand-500: #6366f1;
+    --color-brand-600: #4f46e5;
+    --color-brand-700: #4338ca;
+    --color-brand-800: #3730a3;
+    --color-brand-900: #312e81;
+    --color-brand-950: #1e1b4b;
+
+    /* Accent — cyan/teal (highlights, links) */
+    --color-accent-500: #06b6d4;
+    --color-accent-600: #0891b2;
+
+    /* Ink — text tones */
+    --color-ink: #0f172a;
+    --color-ink-soft: #475569;
+    --color-ink-faint: #94a3b8;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply bg-slate-50 text-slate-800 antialiased;
+        font-feature-settings: 'cv11', 'ss01';
+    }
+
+    h1, h2, h3 {
+        @apply tracking-tight text-slate-900;
+    }
+
+    /* Consistent focus ring */
+    :where(a, button, input, textarea, select):focus-visible {
+        @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white;
+    }
+
+    ::selection {
+        @apply bg-brand-600 text-white;
+    }
+}
+
+@layer components {
+    /* Page container — comfortable max width with responsive padding */
+    .container-page {
+        @apply mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8;
+    }
+
+    /* Section rhythm */
+    .section {
+        @apply py-16 sm:py-20 lg:py-24;
+    }
+
+    /* Eyebrow label — small uppercase tracker for hierarchy */
+    .eyebrow {
+        @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.15em] text-brand-700;
+    }
+
+    /* Buttons — shared base inlined into each variant (Tailwind v4 cannot
+       @apply another component class, only real utilities). */
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold
+            transition-colors duration-150 bg-brand-600 text-white shadow-sm hover:bg-brand-700
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-secondary {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold
+            transition-colors duration-150 border border-slate-300 bg-white text-slate-700 shadow-sm hover:bg-slate-50
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold
+            transition-colors duration-150 text-slate-700 hover:bg-slate-100
+            focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2
+            disabled:cursor-not-allowed disabled:opacity-60;
+    }
+
+    /* Card — subtle border, very soft shadow */
+    .card {
+        @apply rounded-2xl border border-slate-200/80 bg-white shadow-sm;
+    }
+
+    .card-hover {
+        @apply transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md;
+    }
+
+    /* Form controls */
+    .input {
+        @apply block w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm
+            text-slate-900 placeholder:text-slate-400 shadow-sm
+            focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30;
+    }
+
+    .label {
+        @apply mb-1.5 block text-sm font-medium text-slate-700;
+    }
+
+    .field-error {
+        @apply mt-1.5 text-sm text-red-600;
+    }
+
+    /* Decorative gradient text */
+    .text-gradient {
+        @apply bg-gradient-to-r from-brand-600 to-accent-500 bg-clip-text text-transparent;
+    }
+
+    /* Subtle dotted/grid background used on dark hero & CTA bands */
+    .bg-grid {
+        background-image:
+            linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+            linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+}
+
+@utility bg-grid-ink {
+    background-image:
+        linear-gradient(to right, rgb(15 23 42 / 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(15 23 42 / 0.04) 1px, transparent 1px);
+    background-size: 32px 32px;
 }

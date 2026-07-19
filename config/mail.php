@@ -115,4 +115,14 @@ return [
         'name' => env('MAIL_FROM_NAME', env('APP_NAME', 'Laravel')),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Form Recipient
+    |--------------------------------------------------------------------------
+    | The inbox that receives submissions from the website contact form.
+    |
+    */
+
+    'contact_recipient' => env('CONTACT_RECIPIENT', 'info@dimgent.com'),
+
 ];
