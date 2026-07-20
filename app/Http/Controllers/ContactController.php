@@ -53,7 +53,7 @@ class ContactController extends Controller
                     name: $clean['name'],
                     email: $clean['email'],
                     phone: $clean['phone'] ?? '',
-                    subject: $clean['subject'] ?? '',
+                    inquirySubject: $clean['subject'] ?? '',
                     body: $clean['message'],
                 ));
         } catch (\Throwable $e) {
