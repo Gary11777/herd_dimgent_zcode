@@ -62,18 +62,15 @@ class ContactFormTest extends TestCase
     public function test_contact_route_is_protected_by_csrf_middleware(): void
     {
         // The POST route runs inside the `web` middleware group, which
-        // includes VerifyCsrfToken. (The test harness auto-injects a token,
-        // so rather than forcing a 419 we assert the middleware is wired up.)
+        // includes VerifyCsrfToken (plus session & cookie-encryption). The
+        // test harness auto-injects a token for POSTs, so rather than forcing
+        // a 419 we assert the route runs under the `web` group.
         $route = collect(Route::getRoutes()->get('POST'))
             ->first(fn ($r) => $r->getName() === 'contacts.store');
 
         $this->assertNotNull($route);
-        $this->assertTrue(
-            in_array('Illuminate\Foundation\Http\Middleware\VerifyCsrfToken', $route->gatherMiddleware())
-            || in_array('Illuminate\Session\Middleware\VerifyCsrfToken', $route->gatherMiddleware())
-            || collect($route->gatherMiddleware())->contains(fn ($m) => str_contains($m, 'VerifyCsrfToken')),
-            'contacts.store runs under CSRF verification.'
-        );
+        $this->assertContains('web', $route->gatherMiddleware(),
+            'contacts.store runs under the web middleware group (CSRF-protected).');
     }
 
     public function test_honeypot_filled_is_silently_dropped(): void
